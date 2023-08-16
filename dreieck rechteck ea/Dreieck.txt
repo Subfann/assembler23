@@ -1,0 +1,107 @@
+ .data
+
+ text1 db "Dreieck Berechnung", 0
+
+ var1 db 1
+ var2 db 1
+ var3 db 1
+ ergF dd 1
+ ergU dd 1
+
+
+
+ .code
+
+ up1 proc
+
+ push ebp
+
+ mov ebp, esp
+
+ mov eax, 0
+ mov ebx, 0
+ mov ecx, 0
+
+ mov eax, [ebp+16]
+ mov ebx, [ebp+12]
+ mov ecx, [ebp+8]
+
+ add eax, ebx
+ add eax, ecx
+
+ mov [ebp+20], eax
+
+ mov esp, ebp
+ pop ebp
+
+ ret
+ up1 endp
+
+ up2 proc 
+
+  push ebp
+
+ mov ebp, esp
+
+ mov eax, 0
+ mov ebx, 0
+ mov ecx, 0
+ mov ecx ,2
+
+ mov eax, [ebp+12]
+ mov ebx, [ebp+8]
+
+ mul ebx
+
+ div ecx
+
+ mov [ebp+24], eax
+
+ mov esp, ebp
+ pop ebp
+
+ ret
+ up2 endp
+
+ main:
+
+ invoke StdOut, addr text1
+ invoke locate,0,1
+
+ mov eax, 0
+ push eax
+
+ mov eax, 0
+ push eax
+
+ mov eax, sval(input("Hypothenuse eingeben: "))
+ push eax
+
+ mov eax, sval(input("Kathete 1 eingeben: "))
+ push eax
+
+ mov eax, sval(input("Kathete 2 eingeben: "))
+ push eax
+
+ call up1
+
+ call up2
+
+ pop eax
+ pop eax
+ pop eax
+
+ pop eax
+ mov ergU, eax
+ printf("Der Umfang betraegt: %d", [ergU])
+
+ invoke locate,0,5
+
+ pop eax
+ mov ergF, eax
+ printf("Der Flaecheninhalt betraegt: %d", [ergF])
+
+ invoke locate,0,7
+
+exit
+end main

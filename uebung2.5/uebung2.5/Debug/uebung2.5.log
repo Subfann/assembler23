@@ -1,0 +1,3 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppClean.targets(76,5): warning : Der Prozess kann nicht auf die Datei "h:\assembler\uebung2.5\debug\uebung2.5.exe" zugreifen, da sie von einem anderen Prozess verwendet wird.
+  Assembling uebung2.5.asm...
+LINK : fatal error LNK1104: Datei "H:\Assembler\uebung2.5\Debug\uebung2.5.exe" kann nicht geöffnet werden.

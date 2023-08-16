@@ -1,0 +1,3 @@
+﻿  Assembling uebung4b.asm...
+c:\masm32\include\masm32rt.inc(33): warning A4011: multiple .MODEL directives found : .MODEL ignored
+  uebung4b.vcxproj -> H:\Assembler\uebung4b\Debug\uebung4b.exe
