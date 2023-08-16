@@ -1,0 +1,168 @@
+; ======================================
+ .386
+ .model flat , stdcall
+ option casemap : none
+; ======================================
+
+include \masm32\include\windows.inc
+include \masm32\include\masm32rt.inc
+include \masm32\include\masm32.inc
+include \masm32\include\kernel32.inc
+include \masm32\macros\macros.asm
+includelib \masm32\lib\kernel32.lib
+includelib \masm32\lib\masm32.lib
+
+.data
+ tfn dd 1
+ tsn dd 1
+ teing db "Geben Sie drei Zahlen zwischen 1 und 10 ein", 0
+ n1 dd 1
+ n2 dd 1
+ n3 dd 1
+
+.code
+prg proc
+push ebp
+mov ebp, esp
+
+;			ret +4
+; k z auf    +32       n3  +8  7push   --> 1.(pop)
+; m z auf    +28       n2  +12  6push   --> 2.(pop)
+; g z auf    +24	n1  +16  5push   --> 3.(pop)
+; prod auf   +20	pro +20  4push   --> 4.(pop) 
+; n1 auf     +16	g z +24  3push   --> 5.(pop)
+; n2 auf     +12	m z +28  2push   --> 6.(pop)
+; n3 auf      +8	k z +32  1push   --> 7.(pop)
+; ret auf     +4
+
+; Produkt berechnen
+mov eax, dword ptr [ebp + 8]  ; n3
+mul dword ptr [ebp + 12] ; n2
+mul dword ptr [ebp + 16] ; n1
+mov dword ptr [ebp + 20], eax ; Produkt
+
+; Positionen bestimmen
+mov eax, dword ptr [ebp + 16] ; n1
+mov ebx, dword ptr [ebp + 12] ; n2
+mov ecx, dword ptr [ebp + 8]  ; n3
+
+cmp eax, ebx
+jge agb
+
+cmp ebx, ecx
+jge bgc
+
+mov dword ptr [ebp + 24], 3 ; g z ist c
+mov dword ptr [ebp + 28], 2 ; m z ist b
+mov dword ptr [ebp + 32], 1 ; k z ist a
+
+jmp ende
+
+agb:
+cmp eax, ecx
+jge ag
+
+mov dword ptr [ebp + 24], 3 ; g z ist c
+mov dword ptr [ebp + 28], 1 ; m z ist a
+mov dword ptr [ebp + 32], 2 ; k z ist b
+
+jmp ende
+
+ag:
+mov dword ptr [ebp + 24], 1 ; g z ist a
+cmp ebx, ecx
+jge abge
+
+mov dword ptr [ebp + 28], 3 ; m z ist c
+mov dword ptr [ebp + 32], 2 ; k z ist b
+
+jmp ende
+
+abge:
+mov dword ptr [ebp + 28], 2 ; m z ist b
+mov dword ptr [ebp + 32], 3 ; k z ist c
+
+jmp ende
+
+bgc:
+mov dword ptr [ebp + 24], 2 ; g z ist b
+cmp eax, ecx
+jge bag
+
+mov dword ptr [ebp + 28], 3 ; m z ist c
+mov dword ptr [ebp + 32], 1 ; k z ist a
+
+jmp ende
+
+bag:
+mov dword ptr [ebp + 28], 1 ; m z ist a
+mov dword ptr [ebp + 32], 3 ; k z ist c
+
+ende:
+mov esp, ebp
+pop ebp
+ret
+prg endp
+
+main:
+
+invoke locate, 1, 1
+mov [tfn], input("Vorname: ")
+
+invoke locate, 1, 2
+mov [tsn], input("Nachname: ")
+
+invoke locate, 1, 4
+printf("Name, Vorname: %s, %s", tsn, tfn)
+
+invoke locate, 1, 6
+invoke StdOut, addr teing
+
+invoke locate, 1, 7
+mov dword ptr [n1], sval(input("1. Ziffer: "))
+
+invoke locate, 1, 8
+mov dword ptr [n2], sval(input("2. Ziffer: "))
+
+invoke locate, 1, 9
+mov dword ptr [n3], sval(input("3. Ziffer: "))
+
+mov ebx, 0
+mov ecx, 0
+
+push ebx ; k z
+push ebx ; m z
+push ebx ; g z
+push ebx ; produkt
+
+push dword ptr [n1]
+push dword ptr [n2]
+push dword ptr [n3]
+
+call prg
+
+pop eax
+pop eax
+pop eax
+
+invoke locate, 1, 11
+pop eax ; produkt
+printf("Produkt: %d", eax)
+
+invoke locate, 1, 12
+pop eax ; g z
+printf("Position der groessten Ziffer: %d", eax)
+
+invoke locate, 1, 13
+pop eax ; m z
+printf("Position der mittleren Ziffer: %d", eax)
+
+invoke locate, 1, 14
+pop eax ; k z
+printf("Position der kleinsten Ziffer: %d", eax)
+
+invoke locate, 0, 15
+inkey "press any key"
+
+exit
+end main

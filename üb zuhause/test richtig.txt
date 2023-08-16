@@ -1,0 +1,35 @@
+
+
+ret +4
+n3  +8  7push   --> 1.(pop)
+n2  +12  6push   --> 2.(pop)
+n1  +16  5push   --> 3.(pop)
+pro +20  4push   --> 4.(pop)  
+g z +24  3push   --> 5.(pop)
+m z +28  2push   --> 6.(pop)
+k z +32  1push   --> 7.(pop)
+
+
+
+
+
+
+n3       1.(pop)
+n2       2.(pop)
+n1	 3.(pop)
+prod     4.(pop)
+g z	 5.(pop)
+m z	 6.(pop)
+k z	 7.(pop)
+
+
+
+
+;Div Rechnung
+
+mov edx, 0
+mov eax, dword ptr [ebp + 8]				;n2 x
+mov ebx, dword ptr [ebp +12]				;n1 y
+div ebx										 ; eax= eax: ebx (erg wird in eax gespeichert)
+
+mov dword ptr [ebp + 8], eax
