@@ -1,0 +1,28 @@
+3.2 Aufgabe
+
+
+
+
+.data
+    buffer db 10 dup(?) ;Array
+.code 
+main proc
+        
+     invoke StdIn, addr buffer, LENGTHOF buffer
+     ;push 10
+     ;push offset buffer
+     ;call StdIn
+     mov ecx, 5;Schleifen-Zahl
+     mov esi, offset buffer ;Source-Index 
+again:
+     mov al, byte ptr [esi] ; Inhalt des Array    wir haben Byte verwendet ,da wir Assci-code 
+     inc al ;Array-Inhalt+1
+     mov byte ptr [esi], al
+     inc esi
+     loop again
+
+     invoke StdOut, addr buffer
+        
+	invoke ExitProcess, 0
+main endp
+end main

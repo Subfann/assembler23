@@ -1,0 +1,111 @@
+;==============================================================
+ .386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+
+
+ include c:\masm32\include\windows.inc
+ include c:\masm32\include\masm32.inc
+ include c:\masm32\include\kernel32.inc
+ includelib c:\masm32\lib\kernel32.lib
+ includelib c:\masm32\lib\masm32.lib
+ include \masm32\include\masm32rt.inc
+
+.data
+zahl1 dd ?
+zahl2 dd ?
+.code 
+main proc
+
+  
+call gettwonumbers 
+
+push zahl2
+push zahl1
+push 0
+call addition
+pop eax
+
+printf("addition= %d\n",  eax)
+push zahl2
+push zahl1
+
+call subtraktion
+pop eax
+printf("subtraktion= %d\n",  eax)
+push zahl2
+push zahl1
+
+
+
+call multiplikation
+pop eax 
+printf("multiplikation= %d\n",  eax)
+push zahl2
+push zahl1
+invoke ExitProcess, 0
+main endp
+
+
+
+
+
+gettwonumbers proc
+mov ebx, sval(input("fn"))
+mov zahl1, ebx
+mov edx, sval(input("sn"))
+mov zahl2, edx
+
+ret
+gettwonumbers endp
+
+
+
+addition proc
+push ebp
+mov ebp, esp
+mov eax,[ebp+8]
+mov ebx,[ebp+12]
+add eax, ebx
+mov [ebp+16],eax
+mov esp,ebp
+pop ebp   ;ebp 
+ret 8 ; 2 parameters = 4*2
+addition endp
+
+
+subtraktion proc
+push ebp
+mov ebp, esp
+mov eax, [ebp+8]
+mov ebx, [ebp+12]
+sub eax, ebx
+mov [ebp+16], eax
+mov esp, ebp
+pop ebp
+ret 8 
+subtraktion endp
+
+
+
+multiplikation proc
+push ebp
+mov ebp, esp
+mov eax , [ebp+8]
+mov ebx, [ebp+12]
+mul ebx
+mov [ebp+16], eax
+mov esp,ebp
+pop ebp
+ret 8
+multiplikation endp
+
+end main

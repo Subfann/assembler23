@@ -1,0 +1,17 @@
+https://www.geeksforgeeks.org/8086-program-search-number-string/?ref=rp###############################
+https://tutorialspoint.dev/computer-science/microprocessor/8086-program-search-number-string##########
+
+https://www.geeksforgeeks.org/8086-program-find-square-root-number/?ref=rp############################
+https://www.geeksforgeeks.org/8086-program-find-sum-even-numbers-given-series/?ref=rp#################
+https://www.geeksforgeeks.org/8086-program-find-sum-odd-numbers-given-series/?ref=rp##################
+assembly program to reverse a number (selbes wie bei string?)#########################################
+
+https://www.geeksforgeeks.org/8086-program-find-square-root-perfect-square-root-number-set-2/?ref=rp##
+https://stackoverflow.com/questions/17868029/finding-square-root-of-an-integer-on-mips-assembly#######
+
+
+
+https://www.youtube.com/watch?v=dPvbgnbLTAM
+https://stackoverflow.com/questions/40602029/how-to-write-if-else-in-assembly#########################
+https://www.youtube.com/watch?v=5mRJeURQXF8
+https://stackoverflow.com/questions/28665528/while-do-while-for-loops-in-assembly-language-emu8086####

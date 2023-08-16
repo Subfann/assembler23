@@ -1,0 +1,49 @@
+.386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+ include c:\masm32\include\windows.inc
+ include c:\masm32\include\masm32.inc
+ include c:\masm32\include\kernel32.inc
+ includelib c:\masm32\lib\kernel32.lib
+ includelib c:\masm32\lib\masm32.lib
+include \masm32\include\masm32rt.inc
+
+
+.data
+Zahl1 dd ?
+zahl2 dd  ?
+.code 
+main proc
+
+    call getTwoNumber
+    call addTwoNumber
+	
+	printf("%d", eax)
+        
+	invoke ExitProcess, 0
+main endp
+
+getTwoNumber proc
+    mov Zahl1, sval(input("First number: "))
+    mov zahl2, sval(input("Second number: "))
+    mov EAX,Zahl1
+    mov EBX,zahl2
+    ret
+getTwoNumber endp
+
+addTwoNumber proc
+    add eax, ebx
+    ret
+addTwoNumber endp
+
+
+
+end main

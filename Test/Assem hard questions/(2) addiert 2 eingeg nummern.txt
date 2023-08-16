@@ -1,0 +1,50 @@
+.386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+ include c:\masm32\include\windows.inc
+ include c:\masm32\include\masm32.inc
+ include c:\masm32\include\kernel32.inc
+ includelib c:\masm32\lib\kernel32.lib
+ includelib c:\masm32\lib\masm32.lib
+include \masm32\include\masm32rt.inc
+
+.data
+	;msg1 db "Enter first number: ",0
+	;msg2 db "Enter second number: ",0
+	var1 dd ?
+	var2 dd ?
+	;buffer db 20 dup(?)
+.code 
+main proc
+	 
+	;push offset msg1
+	;call StdOut
+
+	
+	;invoke StdIn, addr buffer, LENGTHOF buffer
+	mov edx, sval(input("first number: "));String-TO-Value
+	mov var1,edx
+
+
+	;push offset msg2
+	;call StdOut
+
+	;invoke StdIn, addr buffer, LENGTHOF buffer
+	mov ebx, sval(input("second number: "));
+	mov var2,ebx
+	mov eax,var1
+
+	add eax, var2
+	printf("The result is: %d\n", eax);
+
+	invoke ExitProcess, 0
+main endp
+end main

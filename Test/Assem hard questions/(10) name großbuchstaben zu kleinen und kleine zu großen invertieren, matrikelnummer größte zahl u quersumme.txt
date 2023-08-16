@@ -1,0 +1,87 @@
+.386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+ include c:\masm32\include\windows.inc
+ include c:\masm32\include\masm32.inc
+ include c:\masm32\include\kernel32.inc
+ includelib c:\masm32\lib\kernel32.lib
+ includelib c:\masm32\lib\masm32.lib
+include \masm32\include\masm32rt.inc
+
+
+.data
+    msg1  db  "Gib deinen Name ",10,13,0  ;name eingeben
+    txt1 db "Give an id: ",0
+    buffer db 100 dup(?)
+    name1  db 20  dup(?)
+
+.code
+main proc
+      invoke StdOut, addr msg1
+      	invoke StdIn, addr name1, 20                ;vom Gross zum klein +20h  anderesrum -20h   
+     	mov esi,offset name1                           ;64  +26 =90  +20h  else -20h 
+
+     
+     
+mainloop:
+   mov al, byte ptr [esi]
+   cmp al,0
+   je Stop1 ;0=0
+   cmp al,91 ;al<91
+   jg gross                                     ;grosse buchstaben A =64 - Z = 90
+   jl klein                                        ; kleine buchstaben a = 91 - z = 116
+gross:
+    sub al, 20h ; zu grosse
+    jmp weiter
+klein:
+    add al, 20h   ;zu keliene
+weiter:
+    mov byte ptr [esi],al
+    inc esi
+    jmp mainloop
+
+   Stop1:
+
+   invoke StdOut, addr name1
+   printf("\n")
+
+
+
+
+    invoke StdOut, addr txt1
+    invoke StdIn, addr buffer, 100
+    cmp eax, 0
+    je stop
+    mov ecx, eax
+    mov esi, offset buffer
+    xor eax, eax
+	mov bl, byte ptr [esi]
+
+    
+again:
+    movzx edx, byte ptr [esi]
+    sub edx, 30h
+    add eax, edx
+	cmp byte ptr [esi],bl
+	jng less
+	mov bl, byte ptr [esi]
+less:	
+    inc esi
+    loop again
+    
+    printf("Sum: %d    ", eax)
+    printf("Gross: %c   ", bl)
+    
+stop:    
+    invoke ExitProcess,0
+
+main endp
+end main

@@ -1,0 +1,55 @@
+.386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+ include c:\masm32\include\windows.inc
+ include c:\masm32\include\masm32.inc
+ include c:\masm32\include\kernel32.inc
+ includelib c:\masm32\lib\kernel32.lib
+ includelib c:\masm32\lib\masm32.lib
+include \masm32\include\masm32rt.inc
+
+
+
+.data
+     txt1 db "Give an id: ",0
+    buffer db 100 dup(?)
+
+.code
+main proc
+
+    invoke StdOut, addr txt1
+    invoke StdIn, addr buffer, 100
+    cmp eax, 0
+    je stop
+    mov ecx, eax
+    mov esi, offset buffer
+    xor eax, eax
+	mov bl, byte ptr [esi]
+    
+again:
+    movzx edx, byte ptr [esi]
+    sub edx, 30h
+    add eax, edx
+	cmp bl, byte ptr [esi]
+	jng less
+	mov bl, byte ptr [esi]
+less:	
+    inc esi
+    loop again
+    
+    printf("Sum: %d \n"   , eax )
+    printf("Grosse %c" ,bl )
+    
+stop:    
+    invoke ExitProcess,0
+
+main endp
+end main

@@ -1,0 +1,14 @@
+\masm32\bin\ml /c /Zd /coff Test.asm
+
+
+\masm32\bin\Link /SUBSYSTEM:CONSOLE Test.obj
+
+(hier hat man dann Test.exe)
+
+###Angewendet:######
+
+C:\Users\Eric>\masm32\bin\ml /c /Zd /coff Test.asm
+
+C:\Users\Eric>\masm32\bin\Link /SUBSYSTEM:CONSOLE Test.obj
+
+C:\Users\Eric>Test.exe

@@ -1,0 +1,30 @@
+(Finding square root of an integer)
+
+It is not in MIPS, but assembly nonetheless. The basic algorithm I found was based on the fact that the first n odd numbers added together = n^2.
+
+So if you take advantage of that by reversing the process and subtracting from the number you would like to take the square root of, you can loop through to get either the exact answer, or an approximation. I believe its the root + 1 for non-perfect squares.
+
+The idea being that the number of times you loop through is n, which is your square root.
+
+Hope this helps.
+
+
+#############
+
+mov eax, 9513135         ; eax = number to take square root of
+    mov ebx, eax            ; make a copy of eax in ebx
+
+
+    loopIt :
+        sub ebx, count      ; count starts as 1, 3, 5, 7, 9
+        inc count           ; count = even
+        inc count           ; count = odd
+        inc sqrt            ; gives sqrt value
+        mov eax, sqrt
+        cmp ebx, 0
+        js timetoReturn     ; return value if signed num, aka goes over zero
+        jnz loopIt
+
+
+    timetoReturn :
+        mov reg, eax            ; just outputting the value

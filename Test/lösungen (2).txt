@@ -1,0 +1,394 @@
+
+;4.2
+.data 
+op1 db 5
+op2 db 9
+
+erg db ?
+.code 
+main  Proc
+MOV AL,op1
+MOV bl,op2 
+
+
+cmp al,bl
+jG  gro
+sub bl,al 
+mov DL, Bl
+jmp STOP
+
+gro:
+sub al,bl
+mov DL,al
+STOP: 
+MOV erg,DL
+
+RET
+
+main ENDP
+end 
+
+
+
+;4.3
+ORG 100h  
+
+MOV AL,5
+MOV BL ,5
+
+while:
+
+CMP AL,BL 
+JE  STOP 
+JG  STOP
+INC AL
+DEC BL
+JMP while
+
+STOP:
+
+RET
+
+
+
+
+
+ORG 100h
+.data
+val1 db 1 
+val2 db 5
+
+
+;4.3
+.code 
+
+MOV AL,val1
+MOV BL ,val2
+
+while:
+
+CMP AL,BL  ;
+            ;JE  STOP 
+            ;JG  STOP 
+JNL STOP
+INC AL
+DEC BL
+JMP while
+
+STOP: 
+MOV val1,AL
+MOV val2,BL 
+
+RET
+
+
+
+ORG 100h  
+
+MOV AL,1
+MOV bl,0
+mov CL,20 
+for1:
+cmp al,cl
+je  ende
+inc al
+inc bl 
+jmp for1
+ende:
+
+
+RET
+
+
+
+
+
+input Zahlen
+
+
+
+
+.data
+	;msg1 db "Enter first number: ",0
+	;msg2 db "Enter second number: ",0
+	var1 dd ?
+	var2 dd ?
+	;buffer db 20 dup(?)
+.code 
+main proc
+	 
+	;push offset msg1
+	;call StdOut
+
+	
+	;invoke StdIn, addr buffer, LENGTHOF buffer
+	mov edx, sval(input("first number: "));String-TO-Value
+	mov var1,edx
+
+
+	;push offset msg2
+	;call StdOut
+
+	;invoke StdIn, addr buffer, LENGTHOF buffer
+	mov ebx, sval(input("second number: "));
+	mov var2,ebx
+	mov eax,var1
+
+	add eax, var2
+	printf("The result is: %d\n", eax);
+
+	invoke ExitProcess, 0
+main endp
+end main
+
+
+
+
+
+
+
+
+
+3Aufgabe
+
+
+
+
+.data
+    buffer db 10 dup(?) ;Array
+.code 
+main proc
+        
+     invoke StdIn, addr buffer, LENGTHOF buffer
+     ;push 10
+     ;push offset buffer
+     ;call StdIn
+     mov ecx, 5;Schleifen-Zahl
+     mov esi, offset buffer ;Source-Index 
+again:
+     mov al, byte ptr [esi] ; Inhalt des Array    wir haben Byte verwendet ,da wir Assci-code 
+     inc al ;Array-Inhalt+1
+     mov byte ptr [esi], al
+     inc esi
+     loop again
+
+     invoke StdOut, addr buffer
+        
+	invoke ExitProcess, 0
+main endp
+end main
+
+
+
+
+
+.data
+Zahl1 dd ?
+zahl2 dd  ?
+.code 
+main proc
+
+    call getTwoNumber
+    call addTwoNumber
+	
+	printf("%d", eax)
+        
+	invoke ExitProcess, 0
+main endp
+
+getTwoNumber proc
+    mov Zahl1, sval(input("First number: "))
+    mov zahl2, sval(input("Second number: "))
+    mov EAX,Zahl1
+    mov EBX,zahl2
+    ret
+getTwoNumber endp
+
+addTwoNumber proc
+    add eax, ebx
+    ret
+addTwoNumber endp
+
+
+
+end main
+
+
+
+
+.data
+    zahl1 dd ?
+    zahl2 dd ?
+.code 
+main proc
+
+    call getTwoNumber
+
+    push zahl2
+    push zahl1
+    call addTwoNumber
+    pop eax
+	printf("Ergebnis der Addition: %d\n", eax)
+
+    push zahl2
+    push zahl1
+    call subTwoNumber
+    pop eax
+	printf("Ergebnis der Subtraktion: %d\n", eax)
+
+    push zahl2
+    push zahl1
+    call mulTwoNumber
+    pop eax
+	printf("Ergebnis der Multiplikation: %d\n", eax)
+        
+	invoke ExitProcess, 0
+main endp
+
+getTwoNumber proc
+    mov ebx, sval(input("First number: "))
+    mov zahl1, ebx
+    mov edx, sval(input("Second number: "))
+    mov zahl2, edx
+    ret
+getTwoNumber endp
+
+addTwoNumber proc
+    push ebp
+    mov ebp, esp
+
+    mov eax, [ebp+8]
+    mov ebx, [ebp+12]
+    add eax, ebx
+    mov [ebp+16], eax
+
+    mov esp, ebp
+    pop ebp
+
+    ret 8
+addTwoNumber endp
+
+subTwoNumber proc
+    push ebp
+    mov ebp, esp
+
+    mov eax, [ebp+8]
+    mov ebx, [ebp+12]
+    sub eax, ebx
+    mov [ebp+16], eax
+
+    mov esp, ebp
+    pop ebp
+
+    ret 8
+subTwoNumber endp
+
+mulTwoNumber proc
+    push ebp
+    mov ebp, esp
+
+    mov eax, [ebp+8]
+    mov ebx, [ebp+12]
+    mul ebx
+    mov [ebp+16], eax
+
+    mov esp, ebp
+    pop ebp
+
+    ret 8
+mulTwoNumber endp
+
+end main
+
+
+
+
+
+
+
+
+
+
+.data
+    zahl1 dd ?
+    zahl2 dd ?
+.code 
+main proc
+
+    call getTwoNumber
+
+    push zahl2
+    push zahl1
+    call addTwoNumber
+    pop eax
+	printf("Ergebnis der Addition: %d\n", eax)
+
+    push zahl2
+    push zahl1
+    call subTwoNumber
+    pop eax
+	printf("Ergebnis der Subtraktion: %d\n", eax)
+
+    push zahl2
+    push zahl1
+    call mulTwoNumber
+    pop eax
+	printf("Ergebnis der Multiplikation: %d\n", eax)
+        
+	invoke ExitProcess, 0
+main endp
+
+getTwoNumber proc
+    mov ebx, sval(input("First number: "))
+    mov zahl1, ebx
+    mov edx, sval(input("Second number: "))
+    mov zahl2, edx
+    ret
+getTwoNumber endp
+
+addTwoNumber proc
+    push ebp
+    mov ebp, esp
+
+    mov eax, [ebp+8]
+    mov ebx, [ebp+12]
+    add eax, ebx
+    mov [ebp+16], eax
+
+    mov esp, ebp
+    pop ebp
+
+    ret 8
+addTwoNumber endp
+
+subTwoNumber proc
+    push ebp
+    mov ebp, esp
+
+    mov eax, [ebp+8]
+    mov ebx, [ebp+12]
+    sub eax, ebx
+    mov [ebp+16], eax
+
+    mov esp, ebp
+    pop ebp
+
+    ret 8
+subTwoNumber endp
+
+mulTwoNumber proc
+    push ebp
+    mov ebp, esp
+
+    mov eax, [ebp+8]
+    mov ebx, [ebp+12]
+    mul ebx
+    mov [ebp+16], eax
+
+    mov esp, ebp
+    pop ebp
+
+    ret 8
+mulTwoNumber endp
+
+end main

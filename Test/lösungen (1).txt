@@ -1,0 +1,1401 @@
+
+
+2.3
+
+ .386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+ ;include c:\masm32\include\windows.inc
+ ;include c:\masm32\include\masm32.inc
+ ;include c:\masm32\include\kernel32.inc
+ ;includelib c:\masm32\lib\kernel32.lib
+ ;includelib c:\masm32\lib\masm32.lib
+;include \masm32\include\masm32rt.inc
+
+
+include C:\masm32\include\masm32.inc
+include C:\masm32\include\kernel32.inc
+
+include C:\masm32\macros\macros.asm
+
+includelib C:\masm32\lib\kernel32.lib
+includelib C:\masm32\lib\masm32.lib
+
+.data
+
+.code
+main:
+mov al, 13
+mov bl, 1
+cmp al,bl
+
+je gleich
+jl kleiner
+sub al,bl
+jmp stop
+
+
+gleich:
+add al,bl
+jmp stop
+
+kleiner:
+add al,bl
+jmp stop
+
+
+stop:
+
+
+exit
+end main
+
+
+
+
+
+
+
+
+
+
+2.4.1
+ .386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+ ;include c:\masm32\include\windows.inc
+ ;include c:\masm32\include\masm32.inc
+ ;include c:\masm32\include\kernel32.inc
+ ;includelib c:\masm32\lib\kernel32.lib
+ ;includelib c:\masm32\lib\masm32.lib
+;include \masm32\include\masm32rt.inc
+
+
+include C:\masm32\include\masm32.inc
+include C:\masm32\include\kernel32.inc
+
+include C:\masm32\macros\macros.asm
+
+includelib C:\masm32\lib\kernel32.lib
+includelib C:\masm32\lib\masm32.lib
+
+.data
+
+.code
+main:
+mov al, 1
+mov bl, 3
+cmp al,bl
+je gleich
+jmp stop
+gleich:
+mov al, 1
+mov bl, 2
+
+stop:
+exit
+end main
+
+
+2.4.2
+
+ .386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+ ;include c:\masm32\include\windows.inc
+ ;include c:\masm32\include\masm32.inc
+ ;include c:\masm32\include\kernel32.inc
+ ;includelib c:\masm32\lib\kernel32.lib
+ ;includelib c:\masm32\lib\masm32.lib
+;include \masm32\include\masm32rt.inc
+
+
+include C:\masm32\include\masm32.inc
+include C:\masm32\include\kernel32.inc
+
+include C:\masm32\macros\macros.asm
+
+includelib C:\masm32\lib\kernel32.lib
+includelib C:\masm32\lib\masm32.lib
+
+.data
+op1 db ?
+op2 db ?
+erg db ?
+.code
+main:
+mov al, op1
+mov bl, op2
+mov dl, erg
+mov al, 2
+mov bl, 2
+cmp al,bl
+jg grosser
+sub bl,al
+mov dl, bl
+mov erg,dl
+jmp Stop
+grosser:
+sub al,bl
+mov dl,al
+mov erg, dl
+Stop:
+exit
+end main
+
+
+
+
+
+
+
+
+
+2.4.3
+
+ .386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+ ;include c:\masm32\include\windows.inc
+ ;include c:\masm32\include\masm32.inc
+ ;include c:\masm32\include\kernel32.inc
+ ;includelib c:\masm32\lib\kernel32.lib
+ ;includelib c:\masm32\lib\masm32.lib
+;include \masm32\include\masm32rt.inc
+
+
+include C:\masm32\include\masm32.inc
+include C:\masm32\include\kernel32.inc
+
+include C:\masm32\macros\macros.asm
+
+includelib C:\masm32\lib\kernel32.lib
+includelib C:\masm32\lib\masm32.lib
+
+.data
+val1 db 1
+val2 db 5
+
+.code
+main:
+mov al, val1
+mov bl, val2
+
+
+kleiner:
+cmp al,bl
+jnl Stop
+inc al
+dec bl
+jmp kleiner
+
+Stop:
+exit
+end main
+
+
+
+2.4.4
+ .386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+ ;include c:\masm32\include\windows.inc
+ ;include c:\masm32\include\masm32.inc
+ ;include c:\masm32\include\kernel32.inc
+ ;includelib c:\masm32\lib\kernel32.lib
+ ;includelib c:\masm32\lib\masm32.lib
+;include \masm32\include\masm32rt.inc
+
+
+include C:\masm32\include\masm32.inc
+include C:\masm32\include\kernel32.inc
+
+include C:\masm32\macros\macros.asm
+
+includelib C:\masm32\lib\kernel32.lib
+includelib C:\masm32\lib\masm32.lib
+
+.data
+.code
+main:
+mov al, 0
+mov bl, 1
+mov cl, 0
+for1:
+cmp cl, 19
+jnl Stop
+inc al
+inc bl
+inc cl
+jmp for1
+Stop:
+exit
+end mai
+
+
+
+
+
+
+
+;4.2
+.data 
+op1 db 5
+op2 db 9
+
+erg db ?
+.code 
+main  Proc
+MOV AL,op1
+MOV bl,op2 
+
+
+cmp al,bl
+jG  gro
+sub bl,al 
+mov DL, Bl
+jmp STOP
+
+gro:
+sub al,bl
+mov DL,al
+STOP: 
+MOV erg,DL
+
+RET
+
+main ENDP
+end 
+
+
+
+;4.3
+ORG 100h  
+
+MOV AL,5
+MOV BL ,5
+
+while:
+
+CMP AL,BL 
+JE  STOP 
+JG  STOP
+INC AL
+DEC BL
+JMP while
+
+STOP:
+
+RET
+
+
+
+
+
+ORG 100h
+.data
+val1 db 1 
+val2 db 5
+
+
+;4.3
+.code 
+
+MOV AL,val1
+MOV BL ,val2
+
+while:
+
+CMP AL,BL  ;
+            ;JE  STOP 
+            ;JG  STOP 
+JNL STOP
+INC AL
+DEC BL
+JMP while
+
+STOP: 
+MOV val1,AL
+MOV val2,BL 
+
+RET
+
+
+
+ORG 100h  
+
+MOV AL,1
+MOV bl,0
+mov CL,20 
+for1:
+cmp al,cl
+je  ende
+inc al
+inc bl 
+jmp for1
+ende:
+
+
+RET
+
+
+
+
+
+input Zahlen
+
+
+3.1
+
+.data
+	;msg1 db "Enter first number: ",0
+	;msg2 db "Enter second number: ",0
+	var1 dd ?
+	var2 dd ?
+	;buffer db 20 dup(?)
+.code 
+main proc
+	 
+	;push offset msg1
+	;call StdOut
+
+	
+	;invoke StdIn, addr buffer, LENGTHOF buffer
+	mov edx, sval(input("first number: "));String-TO-Value
+	mov var1,edx
+
+
+	;push offset msg2
+	;call StdOut
+
+	;invoke StdIn, addr buffer, LENGTHOF buffer
+	mov ebx, sval(input("second number: "));
+	mov var2,ebx
+	mov eax,var1
+
+	add eax, var2
+	printf("The result is: %d\n", eax);
+
+	invoke ExitProcess, 0
+main endp
+end main
+
+
+
+
+
+
+
+
+
+3.2 Aufgabe
+
+
+
+
+.data
+    buffer db 10 dup(?) ;Array
+.code 
+main proc
+        
+     invoke StdIn, addr buffer, LENGTHOF buffer
+     ;push 10
+     ;push offset buffer
+     ;call StdIn
+     mov ecx, 5;Schleifen-Zahl
+     mov esi, offset buffer ;Source-Index 
+again:
+     mov al, byte ptr [esi] ; Inhalt des Array    wir haben Byte verwendet ,da wir Assci-code 
+     inc al ;Array-Inhalt+1
+     mov byte ptr [esi], al
+     inc esi
+     loop again
+
+     invoke StdOut, addr buffer
+        
+	invoke ExitProcess, 0
+main endp
+end main
+
+
+
+
+
+.data
+Zahl1 dd ?
+zahl2 dd  ?
+.code 
+main proc
+
+    call getTwoNumber
+    call addTwoNumber
+	
+	printf("%d", eax)
+        
+	invoke ExitProcess, 0
+main endp
+
+getTwoNumber proc
+    mov Zahl1, sval(input("First number: "))
+    mov zahl2, sval(input("Second number: "))
+    mov EAX,Zahl1
+    mov EBX,zahl2
+    ret
+getTwoNumber endp
+
+addTwoNumber proc
+    add eax, ebx
+    ret
+addTwoNumber endp
+
+
+
+end main
+
+
+
+
+3b_1
+
+;==============================================================
+ .386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+
+
+ include c:\masm32\include\windows.inc
+ include c:\masm32\include\masm32.inc
+ include c:\masm32\include\kernel32.inc
+ includelib c:\masm32\lib\kernel32.lib
+ includelib c:\masm32\lib\masm32.lib
+ include \masm32\include\masm32rt.inc
+
+.data
+Zahl1 dd ?
+zahl2 dd ?
+.code 
+main proc
+
+    call getTwoNumber
+    
+	
+	printf("EAX =  %d\n", eax)
+    printf("EBX =  %d\n", ebx)
+	invoke ExitProcess, 0
+main endp
+
+getTwoNumber proc
+    mov Zahl1, sval(input("First number: "))
+    mov zahl2, sval(input("Second number: "))
+    mov EAX,Zahl1
+    mov EBX,zahl2
+   RET
+getTwoNumber endp
+
+end main
+
+
+
+
+
+
+.data
+    zahl1 dd ?
+    zahl2 dd ?
+.code 
+main proc
+
+    call getTwoNumber
+
+    push zahl2
+    push zahl1
+    call addTwoNumber
+    pop eax
+	printf("Ergebnis der Addition: %d\n", eax)
+
+    push zahl2
+    push zahl1
+    call subTwoNumber
+    pop eax
+	printf("Ergebnis der Subtraktion: %d\n", eax)
+
+    push zahl2
+    push zahl1
+    call mulTwoNumber
+    pop eax
+	printf("Ergebnis der Multiplikation: %d\n", eax)
+        
+	invoke ExitProcess, 0
+main endp
+
+getTwoNumber proc
+    mov ebx, sval(input("First number: "))
+    mov zahl1, ebx
+    mov edx, sval(input("Second number: "))
+    mov zahl2, edx
+    ret
+getTwoNumber endp
+
+addTwoNumber proc
+    push ebp
+    mov ebp, esp
+
+    mov eax, [ebp+8]
+    mov ebx, [ebp+12]
+    add eax, ebx
+    mov [ebp+16], eax
+
+    mov esp, ebp
+    pop ebp
+
+    ret 8
+addTwoNumber endp
+
+subTwoNumber proc
+    push ebp
+    mov ebp, esp
+
+    mov eax, [ebp+8]
+    mov ebx, [ebp+12]
+    sub eax, ebx
+    mov [ebp+16], eax
+
+    mov esp, ebp
+    pop ebp
+
+    ret 8
+subTwoNumber endp
+
+mulTwoNumber proc
+    push ebp
+    mov ebp, esp
+
+    mov eax, [ebp+8]
+    mov ebx, [ebp+12]
+    mul ebx
+    mov [ebp+16], eax
+
+    mov esp, ebp
+    pop ebp
+
+    ret 8
+mulTwoNumber endp
+
+end main
+
+
+
+
+
+
+
+
+
+
+.data
+    zahl1 dd ?
+    zahl2 dd ?
+.code 
+main proc
+
+    call getTwoNumber
+
+    push zahl2
+    push zahl1
+    call addTwoNumber
+    pop eax
+	printf("Ergebnis der Addition: %d\n", eax)
+
+    push zahl2
+    push zahl1
+    call subTwoNumber
+    pop eax
+	printf("Ergebnis der Subtraktion: %d\n", eax)
+
+    push zahl2
+    push zahl1
+    call mulTwoNumber
+    pop eax
+	printf("Ergebnis der Multiplikation: %d\n", eax)
+        
+	invoke ExitProcess, 0
+main endp
+
+getTwoNumber proc
+    mov ebx, sval(input("First number: "))
+    mov zahl1, ebx
+    mov edx, sval(input("Second number: "))
+    mov zahl2, edx
+    ret
+getTwoNumber endp
+
+addTwoNumber proc
+    push ebp
+    mov ebp, esp
+
+    mov eax, [ebp+8]
+    mov ebx, [ebp+12]
+    add eax, ebx
+    mov [ebp+16], eax
+
+    mov esp, ebp
+    pop ebp
+
+    ret 8
+addTwoNumber endp
+
+subTwoNumber proc
+    push ebp
+    mov ebp, esp
+
+    mov eax, [ebp+8]
+    mov ebx, [ebp+12]
+    sub eax, ebx
+    mov [ebp+16], eax
+
+    mov esp, ebp
+    pop ebp
+
+    ret 8
+subTwoNumber endp
+
+mulTwoNumber proc
+    push ebp
+    mov ebp, esp
+
+    mov eax, [ebp+8]
+    mov ebx, [ebp+12]
+    mul ebx
+    mov [ebp+16], eax
+
+    mov esp, ebp
+    pop ebp
+
+    ret 8
+mulTwoNumber endp
+
+end main
+
+
+
+
+
+
+3b-2
+;==============================================================
+ .386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+
+
+ include c:\masm32\include\windows.inc
+ include c:\masm32\include\masm32.inc
+ include c:\masm32\include\kernel32.inc
+ includelib c:\masm32\lib\kernel32.lib
+ includelib c:\masm32\lib\masm32.lib
+ include \masm32\include\masm32rt.inc
+
+.data
+zahl1 dd ?
+zahl2 dd ?
+.code 
+main proc
+
+  
+call gettwonumbers
+push zahl2
+push zahl1
+
+
+call addition
+pop eax
+printf("addition= %d\n",  eax)
+push zahl2
+push zahl1
+
+call subtraktion
+pop eax
+printf("subtraktion= %d\n",  eax)
+push zahl2
+push zahl1
+
+
+
+call multiplikation
+pop eax 
+printf("multiplikation= %d\n",  eax)
+push zahl2
+push zahl1
+invoke ExitProcess, 0
+main endp
+
+
+
+
+
+gettwonumbers proc
+mov ebx, sval(input("fn"))
+mov zahl1, ebx
+mov edx, sval(input("sn"))
+mov zahl2, edx
+
+ret
+gettwonumbers endp
+
+
+
+addition proc
+push ebp
+mov ebp, esp
+mov eax,[ebp+8]
+mov ebx,[ebp+12]
+add eax, ebx
+mov [ebp+16],eax
+mov esp,ebp
+pop ebp
+ret 8
+addition endp
+
+
+subtraktion proc
+push ebp
+mov ebp, esp
+mov eax, [ebp+8]
+mov ebx, [ebp+12]
+sub eax, ebx
+mov [ebp+16], eax
+mov esp, ebp
+pop ebp
+ret 8 
+subtraktion endp
+
+
+
+multiplikation proc
+push ebp
+mov ebp, esp
+mov eax , [ebp+8]
+mov ebx, [ebp+12]
+mul ebx
+mov [ebp+16], eax
+mov esp,ebp
+pop ebp
+ret 8
+multiplikation endp
+
+end main
+
+
+3b_2 *
+;==============================================================
+ .386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+
+
+ include c:\masm32\include\windows.inc
+ include c:\masm32\include\masm32.inc
+ include c:\masm32\include\kernel32.inc
+ includelib c:\masm32\lib\kernel32.lib
+ includelib c:\masm32\lib\masm32.lib
+ include \masm32\include\masm32rt.inc
+
+.data
+zahl1 dd ?
+zahl2 dd ?
+.code 
+main proc
+
+  
+call gettwonumbers 
+
+push zahl2
+push zahl1
+push 0
+call addition
+pop eax
+
+printf("addition= %d\n",  eax)
+push zahl2
+push zahl1
+
+call subtraktion
+pop eax
+printf("subtraktion= %d\n",  eax)
+push zahl2
+push zahl1
+
+
+
+call multiplikation
+pop eax 
+printf("multiplikation= %d\n",  eax)
+push zahl2
+push zahl1
+invoke ExitProcess, 0
+main endp
+
+
+
+
+
+gettwonumbers proc
+mov ebx, sval(input("fn"))
+mov zahl1, ebx
+mov edx, sval(input("sn"))
+mov zahl2, edx
+
+ret
+gettwonumbers endp
+
+
+
+addition proc
+push ebp
+mov ebp, esp
+mov eax,[ebp+8]
+mov ebx,[ebp+12]
+add eax, ebx
+mov [ebp+16],eax
+mov esp,ebp
+pop ebp   ;ebp 
+ret 8 ; 2 parameters = 4*2
+addition endp
+
+
+subtraktion proc
+push ebp
+mov ebp, esp
+mov eax, [ebp+8]
+mov ebx, [ebp+12]
+sub eax, ebx
+mov [ebp+16], eax
+mov esp, ebp
+pop ebp
+ret 8 
+subtraktion endp
+
+
+
+multiplikation proc
+push ebp
+mov ebp, esp
+mov eax , [ebp+8]
+mov ebx, [ebp+12]
+mul ebx
+mov [ebp+16], eax
+mov esp,ebp
+pop ebp
+ret 8
+multiplikation endp
+
+end main
+
+
+
+4_b 
+
+
+
+.386
+.model flat, stdcall
+option casemap:none   ; case sensitive
+      
+include \masm32\include\masm32rt.inc
+
+.data
+    txt1 db "Give an id: ",0
+    buffer db 100 dup(?)
+
+.code
+main proc
+
+    invoke StdOut, addr txt1
+    invoke StdIn, addr buffer, 100
+    cmp eax, 0
+    je stop
+    mov ecx, eax
+    mov esi, offset buffer
+    xor eax, eax
+    
+again:
+    movzx edx, byte ptr [esi]
+    sub edx, 30h
+    add eax, edx
+    inc esi
+    loop again
+    
+    printf("Sum: %d", eax)
+    
+stop:    
+    invoke ExitProcess,0
+
+main endp
+end main
+
+
+
+
+
+
+_____________________________________________________________________________________________________________
+
+
+5
+
+;==============================================================
+ .386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+
+
+ include c:\masm32\include\windows.inc
+ include c:\masm32\include\masm32.inc
+ include c:\masm32\include\kernel32.inc
+ includelib c:\masm32\lib\kernel32.lib
+ includelib c:\masm32\lib\masm32.lib
+ include \masm32\include\masm32rt.inc
+
+
+.data
+	txt1 db "Bitte eine Zeichenkette einzugeben: ", 10, 13, 0 ;\r\n
+	txt2 db "Bitte eine Zeichen einzugeben: ", 10, 13, 0
+    buffer db 100 dup(?)
+	char dd ? ; char dd ?
+.code
+main proc
+
+    invoke StdOut, addr txt1
+    invoke StdIn, addr buffer, 100
+	invoke StdOut, addr txt2
+	
+    call crt__getch ;input char is in eax
+    mov char, eax
+	printf("%c found in: ", eax);zaigt das zeichen
+	mov eax, char
+	
+    mov esi, offset buffer
+	;mov edi, offer positions
+    mov ecx, 0 ; how much time char found
+	mov ebx, 0 ; für die Stelle
+    
+again:
+    movzx edx, byte ptr [esi]
+    cmp edx, 0
+    je stoploop
+    cmp eax, edx
+	je found
+	inc esi
+	inc ebx
+	jmp again
+found:
+	inc ecx
+	push eax
+	push edx
+	push ecx
+	printf("pos[%d], ", ebx);
+	pop ecx
+	pop edx
+	pop eax
+	inc ebx
+	inc esi 
+    jmp again
+stoploop:
+    cmp ecx, 0
+	jne printfound
+
+    printf("Zeichen %c nicht gefunden\n", char)
+	jmp stop
+printfound:
+    printf("\nCharacter %c %d mal gefunden\n", char, ecx)
+stop:    
+    invoke ExitProcess,0
+
+main endp
+end main
+
+
+_____________________________________________________________________________
+
+
+6.a
+								
+
+
+#include <iostream>
+using namespace std;
+
+int main(void)
+{
+	  long a, b, c, d, y;
+	 cout << sizeof(int) << endl;
+
+
+	cout << "Bitter a eingeber:";
+	cin >> a;
+	cout << "Bitter b eingeber:";
+	cin >> b;
+	cout << "Bitter c eingeber:";
+	cin >> c;
+	cout << "Bitter d eingeber:";
+	cin >> d;
+
+	/* y = (a + b) / 2 + (c + d) / 3 */
+	__asm {
+		mov eax, a
+		mov ebx, b
+		mov ecx, c
+		mov edi, d
+		add eax, ebx
+		mov ebx, 2
+		mov edx, 0
+		div  ebx
+		mov ebx, eax;10/2 = 5
+		add ecx, edi
+		mov eax, ecx
+		mov esi , 3 
+		mov edx, 0
+		div esi
+		add eax, ebx
+		mov y, eax
+	}
+
+	cout << "y = " << y;
+
+	return 0;
+}
+
+
+__________________________________________________________________________________________________________
+matrikelnummer quersumme +sucht kleine stelle 
+
+Zusatzaufgabe
+
+.data
+     txt1 db "Give an id: ",0
+    buffer db 100 dup(?)
+
+.code
+main proc
+
+    invoke StdOut, addr txt1
+    invoke StdIn, addr buffer, 100
+    cmp eax, 0
+    je stop
+    mov ecx, eax
+    mov esi, offset buffer
+    xor eax, eax
+	mov bl, byte ptr [esi]
+    
+again:
+    movzx edx, byte ptr [esi]
+    sub edx, 30h
+    add eax, edx
+	cmp bl, byte ptr [esi]
+	jng less
+	mov bl, byte ptr [esi]
+less:	
+    inc esi
+    loop again
+    
+    printf("Sum: %d \n"   , eax )
+    printf("Grosse %c" ,bl )
+    
+stop:    
+    invoke ExitProcess,0
+
+main endp
+end main
+
+ 
+
+
+funktioniert nicht (doch)
+_____________________________________________________________________________________________________________________
+Matrikelnummer Quersumme + größte stelle
+Zustazaufgabe
+
+
+.386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+ include c:\masm32\include\windows.inc
+ include c:\masm32\include\masm32.inc
+ include c:\masm32\include\kernel32.inc
+ includelib c:\masm32\lib\kernel32.lib
+ includelib c:\masm32\lib\masm32.lib
+include \masm32\include\masm32rt.inc
+
+
+.data
+    txt1 db "Gib deine Matrikelnummer: ",0
+    buffer db 100 dup(?)
+
+.code
+main proc
+
+    invoke StdOut, addr txt1
+    invoke StdIn, addr buffer, 100
+    cmp eax, 0 ; nichts gegeben, kommt nicht => stop
+    je stop
+    mov ecx, eax ;else
+    mov esi, offset buffer
+    xor eax, eax               ;mov eax, 0  null machen  
+    mov bl, byte ptr [esi]
+
+    
+again:
+    movzx edx, byte ptr [esi]
+    sub edx, 30h    ; für nicht ascii in dez
+    add eax, edx
+	cmp byte ptr [esi],bl       ;1:1
+	jng less                ;wenn nicht groß,  geh zu less
+	mov bl, byte ptr [esi]
+
+less:	
+    inc esi
+    loop again
+    
+    printf("Sum: %d    ", eax)
+    printf("Gross: %c   ", bl)
+    
+stop:    
+    invoke ExitProcess,0
+
+main endp
+end main
+
+
+
+______________________________________________________________________________
+
+groß in klein , klein in groß matrikelnummer (quersumme), größte stelle
+zusatzaufgabe
+
+
+.386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+ include c:\masm32\include\windows.inc
+ include c:\masm32\include\masm32.inc
+ include c:\masm32\include\kernel32.inc
+ includelib c:\masm32\lib\kernel32.lib
+ includelib c:\masm32\lib\masm32.lib
+include \masm32\include\masm32rt.inc
+
+
+.data
+    msg1  db  "Gib deinen Name ",10,13,0  ;name eingeben
+    txt1 db "Give an id: ",0
+    buffer db 100 dup(?)
+    name1  db 20  dup(?)
+
+.code
+main proc
+      invoke StdOut, addr msg1
+      	invoke StdIn, addr name1, 20                ;vom Gross zum klein +20h  anderesrum -20h   
+     	mov esi,offset name1                           ;64  +26 =90  +20h  else -20h 
+
+     
+     
+mainloop:
+   mov al, byte ptr [esi]
+   cmp al,0
+   je Stop1 ;0=0
+   cmp al,91 ;al<91
+   jg gross                                     ;grosse buchstaben A =64 - Z = 90
+   jl klein                                        ; kleine buchstaben a = 91 - z = 116
+gross:
+    sub al, 20h ; zu grosse
+    jmp weiter
+klein:
+    add al, 20h   ;zu keliene
+weiter:
+    mov byte ptr [esi],al
+    inc esi
+    jmp mainloop
+
+   Stop1:
+
+   invoke StdOut, addr name1
+   printf("\n")
+
+
+
+
+    invoke StdOut, addr txt1
+    invoke StdIn, addr buffer, 100
+    cmp eax, 0
+    je stop
+    mov ecx, eax
+    mov esi, offset buffer
+    xor eax, eax
+	mov bl, byte ptr [esi]
+
+    
+again:
+    movzx edx, byte ptr [esi]
+    sub edx, 30h
+    add eax, edx
+	cmp byte ptr [esi],bl
+	jng less
+	mov bl, byte ptr [esi]
+less:	
+    inc esi
+    loop again
+    
+    printf("Sum: %d    ", eax)
+    printf("Gross: %c   ", bl)
+    
+stop:    
+    invoke ExitProcess,0
+
+main endp
+end main
+
+
+
+
+____________________________________________________________________________________________________
+Matrikelnummer quersumme + name 
+
+
+.data
+    msg1 db "Enter your Name",10,13, 0
+    name1 db 20 dup(?)
+    txt1  db "Enter your IDIV-Nr", 0
+    buffer db 10 dup(?)
+
+
+    .code
+    main proc
+    invoke StdOut, addr msg1
+    invoke StdIn, addr name1, 20 
+    mov esi, offset name1
+
+
+
+
+    invoke StdOut, addr name1
+    printf("\n")
+
+    invoke StdOut, addr txt1
+    invoke StdIn, addr buffer,10
+    cmp eax,0
+    je stop
+    mov esi, offset buffer
+  mov ecx,eax
+    xor eax,eax
+
+kawaloop:
+    movzx edx, byte ptr [esi]
+    sub edx, 30h
+    add eax,edx
+    ;mov byte ptr[esi],ecx
+    inc esi
+    loop kawaloop
+
+     printf("Sum: %d    ", eax)
+  stop:
+     
+
+    INVOKE ExitProcess,0
+
+  
+
+    main endp
+  
+    end main
+
+
+
+
+
