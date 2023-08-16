@@ -1,0 +1,144 @@
+;==============================================================
+ .386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+include \masm32\include\masm32.inc
+include \masm32\include\kernel32.inc
+
+include \masm32\macros\macros.asm
+
+includelib \masm32\lib\kernel32.lib
+includelib \masm32\lib\masm32.lib
+
+
+.data
+	
+	zahl1 dw 4
+	zahl2 dd 5
+	zahl3 dd 3
+
+	zahl4 dw 1
+	zahl5 dd 2
+
+
+.code
+main:
+
+;8 bit = db
+;16 bit = dw
+;32 bit = dd
+
+
+;1. add ohne überlauf
+
+	;1.1: 16 bit
+
+		;1.1.1 Addition eines Registeroperanden und eines Direktoperanden (einer Zahl)
+			;ax + 2
+			mov ax, 0
+			add ax, 2
+
+        ;1.1.2 Addition von 2 Register-Operanden
+			;ax + bx : 5+3
+			mov ax, 5
+			mov bx, 3
+			add ax, bx
+
+        ;1.1.3 Addition von einem Registeroperanden und einem Speicheroperanden (der Speicheroperand soll dabei im Daten-Segment vereinbart sein)
+			;ax + var (4 + 4((zahl1)) =8)
+			mov ax, 4
+			add ax, zahl1
+
+
+
+	;1.2: 32 bit
+
+		;1.2.1 Addition eines Registeroperanden und eines Direktoperanden (einer Zahl)
+			;eax + 5
+			mov eax, 0
+			add eax, 5
+
+		;1.2.2 Addition von 2 Register-Operanden
+			;eax + ebx: 3+5
+			mov eax, 3
+			mov ebx, 5
+			add eax, ebx
+
+		;1.2.3 Addition von einem Registeroperanden und einem Speicheroperanden (der Speicheroperand soll dabei im Daten-Segment vereinbart sein)
+			; eax + var (1 + 5((var)) = 6)
+			mov eax, 1
+			add eax, zahl2
+
+
+;2. addd mit überlauf
+
+	;2.1: 32 bit
+
+		;2.1.1 Addition eines Registeroperanden und eines Direktoperanden (einer Zahl)
+			;eax + 3 (9+3)
+			mov eax, 9
+			adc eax, 3
+
+		;2.1.2 Addition von 2 Register-Operanden
+			;eax + ebx (5+6)
+			mov eax, 5
+			mov ebx, 6
+			adc eax, ebx
+
+		;2.1.3 Addition von einem Registeroperanden und einem Speicheroperanden (der Speicheroperand soll dabei im Daten-Segment vereinbart sein)
+			;eax + var (4+3((var)) = 7)
+			mov eax, 4
+			adc eax, zahl3
+
+;3. subtraktion
+
+	;3.1: 16 bit
+
+		;3.1.1 Subtraktion eines Registeroperanden und eines Direktoperanden (einer Zahl)
+			;ax - 5 (7-5=2)
+			mov ax, 7
+			sub ax, 5
+
+		;3.1.2 Subtraktion von 2 Register-Operanden
+			;ax - bx (4-2=2)
+			mov ax, 4
+			mov bx, 2
+			sub ax, bx
+
+		;3.1.3 Subraktion von einem Registeroperanden und einem Speicheroperanden(der Speicheroperand soll dabei im Daten-Segment vereinbart sein)
+			;ax - var (9 - 1var = 8)
+			mov ax, 9
+			sub ax, zahl4 
+
+
+	;3.2: 32 bit
+
+		;3.2.1 Subtraktion eines Registeroperanden und eines Direktoperanden (einer Zahl)
+			;eax - 3 (5-3=2)
+			mov eax, 5
+			sub eax, 3
+
+		;3.2.2 Subtraktion von 2 Register-Operanden
+			;eax - ebx (6-2=4)
+			mov eax, 6
+			mov ebx, 2
+			sub eax, ebx
+
+		;3.2.3 Subtraktion von einem Registeroperanden und einem Speicheroperanden(der Speicheroperand soll dabei im Daten-Segment vereinbart sein) 
+			;eax - var (8 - 2var = 7)
+			mov eax, 8
+			sub eax, zahl5
+
+
+ 
+
+exit 
+end main

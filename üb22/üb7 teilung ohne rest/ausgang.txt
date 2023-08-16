@@ -1,0 +1,13 @@
+;-----Prüfen ob eine Zahl ohne Rest durch eine andere Zahl teilbar ist-----
+
+
+;-Geben Sie 10 mehrstellige Zahlen ein und zeigen Sie diese auf der Konsole an.
+;-Geben Sie jetzt die Zahl ein, durch die jeweils geteilt werden soll.
+;-Überprüfen Sie, welche der eingegebenen Zahlen ohne Rest teilbar sind (Kontrolle, ob ganzzahliger Rest = 0).
+;-Geben Sie die Zahlen aus, die ohne Rest teilbar sind.
+
+;Hinweis: Beachten Sie bei den Eingaben den Zahlenbereich (4 Byte).
+
+
+
+; code

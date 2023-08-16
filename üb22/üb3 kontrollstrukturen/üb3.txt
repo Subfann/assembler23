@@ -1,0 +1,80 @@
+;==============================================================
+ .386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+include \masm32\include\masm32.inc
+include \masm32\include\kernel32.inc
+
+include \masm32\macros\macros.asm
+
+includelib \masm32\lib\kernel32.lib
+includelib \masm32\lib\masm32.lib
+
+.data
+ 
+.code
+main:
+
+;1. Logische Befehle;and; x y xy; 0 0  0; 0 1  0; 1 0  0; 1 1  1;or; x y xy; 0 0  0; 0 1  1; 1 0  1; 1 1  1;xor; x y xy; 0 0  0; 0 1  1; 1 0  1; 1 1  0		;1.1: 0101 1001b AND 1111 1000b			;0101 1001b = 59h  (89dez)			;1111 1000b = F8h  (248dez)			mov bl, 59h    ;0101 1001b			mov bh, F8h    ;1111 1000b			and bl, bh	   ;bl = 0101 1000b = 58h (88dez)    ((dest source))		;1.2; 0101 1101b OR 1001 1011b 			; 0101 1101b = 5Dh  (93dez)			; 1001 1011b = 9Bh  (155dez)			mov bl, 5Dh    ;0101 1101b			mov bh, 9Bh    ;1001 1011b			xor bl, bh	   ;bl = 1100 0110b = C6h (198dez);2. Bitschiebe- und Rotationsbefehle		;2.1 Gegeben sei die Zahl 0111 0010b. Verschieben Sie die Bits:
+		;0111 0010b = 72h = 114dez
+
+			;2.1.1 um eine Stelle nach links,
+
+			mov ax, 01110010b
+			sal, 1             ;0111 0010 = 1110 0100
+
+
+
+			;2.1.2 um zwei Stellen nach rechts. Welchen arithmetischen Operationen entspricht das? 							mov ax, 01110010b
+			sar, 2     			;Each shift divides the destination operand by 2, while preserving the sign.		;2.2 Rotieren Sie die Bits unter Einbeziehung des Carry-Flags:
+
+			;um eine Stelle nach links,
+				
+			mov ax, 01110010b
+			rcl, 1 
+
+
+
+			;um eine Stelle nach rechts. 						mov ax, 01110010b
+			rcr, 1  ;3. Bedingte Sprungbefehle	;Zwei Zahlen, die Sie selbst wählen, sollen verglichen werden:
+
+		;3.1 ist a = b sollen sie addiert werden,       (l1)
+
+		;3.2 ist a > b sollen sie subtrahiert werden,   (l2)
+			
+		;3.3 ist a < b sollen sie auch addiert werden.  (l3)							mov eax, 0
+			mov ebx, 0
+			mov eax, 5			mov ebx, 2						cmp eax, ebx			jz l1			jg l2			jl l3			l1:			add eax, ebx			l2:			sub eax, ebx			l3:			add eax, ebx;4. C++ Konstrukte in MASM32;Setzen Sie folgenden C++ -Code in MASM32 um: 	;4.1. if- Statement 		;if( op1 == op2 ) then
+			;{
+				;op1 = 1;
+				;op2 = 2;
+			;}; 		mov eax, 0
+		mov ebx, 0
+		mov eax, 4		mov ebx, 4					cmp eax, ebx		jz a1		a1:		mov eax, 1		mov eax, 2				;4.2. if- then – else- Statement 		;if (op1 > op2) then
+			;erg = op1 – op2;
+		;else
+			;erg = op2 – op1;
+		;end if 		mov eax, 0
+		mov ebx, 0
+		mov eax, 5		mov ebx, 4					cmp eax, ebx		jg a2		sub ebx, eax      ;else		a2:		sub eax, ebx     ;if	;4.3. while- Schleife 		;val1 = 5;
+		;val2 = 1;
+		;while( val1 < val2 )
+		;{
+			;val1++;
+			;val2--;
+		;}	;4.4. for- Schleife 		;y = 0;
+		;for (x= 1; x<= 20; x++)
+		;{
+			;y = y+ 1;
+		;};		mov eax, 0		mov ebx, 0		p1forloop: 		cmp ebx, 20			;abbruchbedingung		jge endp			;aktion: zahl ausgeben		add ebx, 1		add eax, 1		jmp p1forloop		;loop erneut aufrufen		endp:				;zahl ausgeben		printf("%d", eax)
+
+exit 
+end main

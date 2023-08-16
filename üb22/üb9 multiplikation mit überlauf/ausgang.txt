@@ -1,0 +1,27 @@
+;-------Multiplikation von eingegebenen Zahlen und Test auf Überlauf des Zahlenbereiches------
+
+
+;-Geben Sie 3 mehrstellige positive Zahlen unterschiedlicher Größe über die Konsole ein 
+;und zeigen Sie diese auf der Konsole an. z.B. "1. Zahl: " usw.
+
+;-Die Eingabe soll immer mit der <ENTER>-Taste abgeschlossen werden.
+
+;-Multiplizieren Sie die 3 Zahlen und zeigen Sie das Ergebnis auf der Konsole an.
+
+;-Testen Sie, ob ein Überlauf des Zahlenbereichs (4 Byte) auftrat.:
+;	1. Wenn ja, geben Sie eine Fehlernachricht aus ("Zahlenbereich überschritten").
+;	2. Wenn nein, testen Sie, ob das Ergebnis eine gerade Zahl darstellt und geben Sie das
+;	   Ergebnis als Text (z.B. "Zahl gerade" oder "Zahl ungerade") auf der Konsole aus.
+
+
+
+
+;Um auf eine gerade Zahl zu testen, verwenden Sie die folgenden zwei Möglichkeiten:
+;	 a) Test als Division durch 2
+;	 b) Schieben Sie das niederwertigste Bit D0 in das C-Flag und springen Sie (oder nicht) in
+;	 Abhängigkeit des C-Bits (JC bzw. JNC)
+
+
+;
+; CODE
+;

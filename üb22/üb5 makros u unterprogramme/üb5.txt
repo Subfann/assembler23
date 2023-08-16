@@ -1,0 +1,242 @@
+;==============================================================
+ .386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+include \masm32\include\masm32.inc
+include \masm32\include\kernel32.inc
+
+include \masm32\macros\macros.asm
+
+includelib \masm32\lib\kernel32.lib
+includelib \masm32\lib\masm32.lib
+
+
+
+
+rechnung1 macro param_1, param_2
+cmp param_1, param_2
+
+jg eins2G							  ; if wert1 > wert2 sprung in einsG
+
+jl zwei2G							   ; if wert1 < wert2 sprung in zweiG
+
+jz gleich2G							  ; if wert1 - wert2 = 0 (wert1 = wert2) sprung in gleichG
+
+
+
+eins2G:
+mov edx, 1								;werte je nach BEdingung in edx schreiben
+
+
+zwei2G:
+mov edx, 2
+
+gleich2G:
+mov edx, 0
+
+
+endm
+
+
+
+
+rechnung2 macro
+;
+endm
+
+
+
+
+.data
+	
+	
+
+
+.code
+
+
+			;unterproc 1
+up1 proc
+
+
+
+eax, 0
+ebx, 0
+
+mov eax , sval input („"Zahl 1: „))   ;eingabe wert1 u diesen in eax schreiben
+mov ebx , sval input („"Zahl 2: „))   ;eingabe wert2 u diesen in ebx schreiben
+
+cmp eax, ebx						  ; wert1 - wert2
+
+jg einsG							  ; if wert1 > wert2 sprung in einsG
+
+jl zweiG							   ; if wert1 < wert2 sprung in zweiG
+
+jz gleichG							  ; if wert1 - wert2 = 0 (wert1 = wert2) sprung in gleichG
+
+
+
+einsG:
+mov edx, 1								;werte je nach BEdingung in edx schreiben
+
+
+zweiG:
+mov edx, 2
+
+gleichG:
+mov edx, 0
+
+
+ret
+up1 endp
+
+
+
+				;unterproc 2
+
+
+up2 proc
+
+push ebp
+mov ebp, esp
+
+eax, 0
+ebx, 0
+
+mov eax , sval input („"Zahl 1: „))   ;eingabe wert1 u diesen in eax schreiben
+mov ebx , sval input („"Zahl 2: „))   ;eingabe wert2 u diesen in ebx schreiben
+
+cmp eax, ebx						  ; wert1 - wert2
+
+jg eins1G							  ; if wert1 > wert2 sprung in einsG
+
+jl zwei1G							   ; if wert1 < wert2 sprung in zweiG
+
+jz gleich1G							  ; if wert1 - wert2 = 0 (wert1 = wert2) sprung in gleichG
+
+
+
+eins1G:
+mov edx, 1								;werte je nach BEdingung in edx schreiben
+
+
+zwei1G:
+mov edx, 2
+
+gleich1G:
+mov edx, 0
+
+
+
+
+mov esp, ebp
+pop ebp
+ret
+up2 endp
+
+
+main:
+
+;1. Makros
+
+;Schreiben Sie für folgende Funktion ein Makro und testen Sie dieses
+
+	;a) mit Parameterübergabe mittels Register eax und ebx
+
+			;Funktion des Makros: Zwei Zahlen sollen verglichen werden.
+					;- Ist die 1. Zahl größer, soll im Register edx eine „1“ zurückgegeben werden.
+					;- Ist die 2. Zahl größer, soll im Register edx eine „2“ zurückgegeben werden.
+					;- Sind beide Zahlen gleich, soll im Register edx eine „0“ zurückgegeben werden.
+
+
+mov eax, 0
+mov ebx, 0
+mov eax , sval input („"Zahl 1: „))   ;eingabe wert1 u diesen in eax schreiben
+mov ebx , sval input („"Zahl 2: „))   ;eingabe wert2 u diesen in ebx schreiben
+
+rechnung1 eax, ebx		;aufruf makro1			param1 = eax    param2 = ebx
+
+
+
+
+
+
+	;b) mit Parameterübergabe im Makro-Kopf
+
+			;Funktion des Makros: Zwei Zahlen sollen verglichen werden.
+					;- Ist die 1. Zahl größer, soll im Register edx eine „1“ zurückgegeben werden.
+					;- Ist die 2. Zahl größer, soll im Register edx eine „2“ zurückgegeben werden.
+					;- Sind beide Zahlen gleich, soll im Register edx eine „0“ zurückgegeben werden.
+
+
+
+
+rechnung2 		;aufruf makro2     
+
+
+
+
+
+
+
+
+
+
+
+
+;2. include-Datei
+
+;Realisieren Sie die Funktion von 1a) mit Hilfe einer include-Datei:
+
+		;mit Parameterübergabe mittels Register eax und ebx
+
+			;Funktion des Makros: Zwei Zahlen sollen verglichen werden.
+					;- Ist die 1. Zahl größer, soll im Register edx eine „1“ zurückgegeben werden.
+					;- Ist die 2. Zahl größer, soll im Register edx eine „2“ zurückgegeben werden.
+					;- Sind beide Zahlen gleich, soll im Register edx eine „0“ zurückgegeben werden.
+
+						;
+
+
+
+;3. Unterprogramm
+
+
+;Realisieren Sie die Funktion mit einem Unterprogramm („proc“).
+
+	;a) Mit Parameterübergabe mittels der Register eax und ebx
+
+			;- Ist die 1. Zahl größer, soll im Register edx eine „1“ zurückgegeben werden.
+			;- Ist die 2. Zahl größer, soll im Register edx eine „2“ zurückgegeben werden.
+			;- Sind beide Zahlen gleich, soll im Register edx eine „0“ zurückgegeben werden.
+
+
+call up1
+
+
+
+
+	;b) Mit Parameterübergabe und Ergebnisrückgabe über den Stack
+
+			;- Ist die 1. Zahl größer, soll im Register edx eine „1“ zurückgegeben werden.
+			;- Ist die 2. Zahl größer, soll im Register edx eine „2“ zurückgegeben werden.
+			;- Sind beide Zahlen gleich, soll im Register edx eine „0“ zurückgegeben werden.
+
+push
+
+
+call up2
+
+pop
+
+
+exit 
+end main

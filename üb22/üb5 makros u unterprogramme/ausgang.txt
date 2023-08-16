@@ -1,0 +1,63 @@
+;1. Makros
+
+;Schreiben Sie für folgende Funktion ein Makro und testen Sie dieses
+
+	;a) mit Parameterübergabe mittels Register eax und ebx
+
+			;Funktion des Makros: Zwei Zahlen sollen verglichen werden.
+					;- Ist die 1. Zahl größer, soll im Register edx eine „1“ zurückgegeben werden.
+					;- Ist die 2. Zahl größer, soll im Register edx eine „2“ zurückgegeben werden.
+					;- Sind beide Zahlen gleich, soll im Register edx eine „0“ zurückgegeben werden.
+
+						;
+
+
+	;b) mit Parameterübergabe im Makro-Kopf
+
+			;Funktion des Makros: Zwei Zahlen sollen verglichen werden.
+					;- Ist die 1. Zahl größer, soll im Register edx eine „1“ zurückgegeben werden.
+					;- Ist die 2. Zahl größer, soll im Register edx eine „2“ zurückgegeben werden.
+					;- Sind beide Zahlen gleich, soll im Register edx eine „0“ zurückgegeben werden.
+
+						;
+
+
+;2. include-Datei
+
+;Realisieren Sie die Funktion von 1a) mit Hilfe einer include-Datei:
+
+		;mit Parameterübergabe mittels Register eax und ebx
+
+			;Funktion des Makros: Zwei Zahlen sollen verglichen werden.
+					;- Ist die 1. Zahl größer, soll im Register edx eine „1“ zurückgegeben werden.
+					;- Ist die 2. Zahl größer, soll im Register edx eine „2“ zurückgegeben werden.
+					;- Sind beide Zahlen gleich, soll im Register edx eine „0“ zurückgegeben werden.
+
+						;
+
+
+
+;3. Unterprogramm
+
+
+;Realisieren Sie die Funktion mit einem Unterprogramm („proc“).
+
+	;a) Mit Parameterübergabe mittels der Register eax und ebx
+
+			;- Ist die 1. Zahl größer, soll im Register edx eine „1“ zurückgegeben werden.
+			;- Ist die 2. Zahl größer, soll im Register edx eine „2“ zurückgegeben werden.
+			;- Sind beide Zahlen gleich, soll im Register edx eine „0“ zurückgegeben werden.
+
+
+
+
+
+
+
+	;b) Mit Parameterübergabe und Ergebnisrückgabe über den Stack
+
+			;- Ist die 1. Zahl größer, soll im Register edx eine „1“ zurückgegeben werden.
+			;- Ist die 2. Zahl größer, soll im Register edx eine „2“ zurückgegeben werden.
+			;- Sind beide Zahlen gleich, soll im Register edx eine „0“ zurückgegeben werden.
+
+				;

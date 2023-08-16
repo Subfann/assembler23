@@ -1,0 +1,119 @@
+;==============================================================
+ .386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+include \masm32\include\masm32.inc
+include \masm32\include\kernel32.inc
+
+include \masm32\macros\macros.asm
+
+includelib \masm32\lib\kernel32.lib
+includelib \masm32\lib\masm32.lib
+
+
+.data
+	
+
+z1 dd 1
+z2 dd 1
+z3 dd 1
+
+erg dd1
+
+
+.code
+main:
+
+
+;-------Multiplikation von eingegebenen Zahlen und Test auf Überlauf des Zahlenbereiches------
+
+
+;-Geben Sie 3 mehrstellige positive Zahlen unterschiedlicher Größe über die Konsole ein 
+;und zeigen Sie diese auf der Konsole an. z.B. "1. Zahl: " usw.
+
+;-Die Eingabe soll immer mit der <ENTER>-Taste abgeschlossen werden.
+
+
+mov dword ptr [z1], sval(input("1. Ziffer: "))			;zahlen einlesen und in variablen um data segment schreiben
+mov dword ptr [z2], sval(input("2. Ziffer: "))
+mov dword ptr [z3], sval(input("3. Ziffer: "))
+
+
+
+;-Multiplizieren Sie die 3 Zahlen und zeigen Sie das Ergebnis auf der Konsole an.
+
+mov eax, 0
+mov ebx, 0
+mov ecx, 0
+
+
+mov ecx, z3			;var in register kopieren
+mov ebx, z2			;var in register kopieren
+
+mov eax, z1			;var in register kopieren
+mul ebx				;erg in eax (a*b) = zwischenerg
+
+mov ebx, eax		;zwischenerg von eax nach ebx kopieren
+mul ecx				;erg in ebx  (ebx*ecx)     zwischenerg*c
+
+
+;mov dword ptr [erg], ebx
+
+printf("Ergebniss: %d", ebx)
+
+
+
+
+
+;-Testen Sie, ob ein Überlauf des Zahlenbereichs (4 Byte) auftrat.:
+;	1. Wenn ja, geben Sie eine Fehlernachricht aus ("Zahlenbereich überschritten").
+;	2. Wenn nein, testen Sie, ob das Ergebnis eine gerade Zahl darstellt und geben Sie das
+;	   Ergebnis als Text (z.B. "Zahl gerade" oder "Zahl ungerade") auf der Konsole aus.
+
+cmp ebx, 0
+
+jno keinlauf				;jump wenn kein überlauf
+
+printf("Zahlenbereich überschritten")	;falls überlauf ausgbe
+
+
+
+keinlauf:			;wenn kein überlauf dann sprung hierher
+
+mov edx, 0
+mov eax, ebx		;erg nach eax kopieren
+mov ebx, 2
+div ebx				;eax / 2 (ebx)  =erg in eax
+
+comp edx, 0			;carry in edx wenn vorhanden
+
+jz gerade			;wenn 0 dannn kein übertrag = gerade, sprung in gerade
+
+printf("Zahl ungerade")			;wird nur ausgeführt wenn ungeade bzw jz gefailt hat
+
+
+
+
+gerade:						;wenn zahl gerade hierhin springen und textausgabe
+
+printf("Zahl ungerade")
+
+
+
+
+;Um auf eine gerade Zahl zu testen, verwenden Sie die folgenden zwei Möglichkeiten:
+;	 a) Test als Division durch 2
+;	 b) Schieben Sie das niederwertigste Bit D0 in das C-Flag und springen Sie (oder nicht) in
+;	 Abhängigkeit des C-Bits (JC bzw. JNC)
+
+
+exit 
+end main

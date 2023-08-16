@@ -1,0 +1,22 @@
+;-----Übung zu Parameterübergabe über den Stack-------
+
+
+;-Geben Sie über die Konsole genau 8 verschiedene einzelne Ziffern (vorzeichenlos, 1-9) ein.
+;-In einem Unterprogramm soll die Summe aller 8 Ziffern gebildet werden.
+;-Die Übergabe der Ziffern an das Unterprogramm muss über den Stack erfolgen, ebenso die Rückgabe des Ergebnisses an das Hauptprogramm.
+;(Das Hauptprogramm hat also nur die Aufgabe, die Ein- und Ausgabe sowie die Darstellung auf der Konsole zu realisieren.)
+
+
+;Hinweis: Beachten Sie, dass die Ziffern als ASCII-Code erscheinen im Programm, d.h., von jeder Ziffer 
+;		sind 30h zu subtrahieren, um den eigentlichen Zahlenwert zu bekommen.
+
+
+
+mov dword ptr [z1], sval(input("1. Ziffer: "))			;zahlen einlesen und in variablen um data segment schreiben
+mov dword ptr [z2], sval(input("2. Ziffer: "))
+mov dword ptr [z3], sval(input("3. Ziffer: "))
+mov dword ptr [z4], sval(input("4. Ziffer: "))
+mov dword ptr [z5], sval(input("5. Ziffer: "))
+mov dword ptr [z6], sval(input("6. Ziffer: "))
+mov dword ptr [z7], sval(input("7. Ziffer: "))
+mov dword ptr [z8], sval(input("8. Ziffer: "))

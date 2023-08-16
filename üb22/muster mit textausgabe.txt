@@ -1,0 +1,41 @@
+;==============================================================
+ .386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+include \masm32\include\masm32.inc
+include \masm32\include\kernel32.inc
+
+include \masm32\macros\macros.asm
+
+includelib \masm32\lib\kernel32.lib
+includelib \masm32\lib\masm32.lib
+
+
+.data
+	
+	msg1 db "Assembly Message: ", 0             
+ msg2 db "Your first Assembly program!", 0 
+
+
+.code
+main:
+
+;	hier steht
+;	eigener
+;	Code
+
+
+invoke StdOut, addr msg1                    
+ invoke StdOut, addr msg2                     
+ invoke ExitProcess, 0   
+
+exit 
+end main

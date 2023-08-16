@@ -1,0 +1,153 @@
+;==============================================================
+ .386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+include \masm32\include\masm32.inc
+include \masm32\include\kernel32.inc
+
+include \masm32\macros\macros.asm
+
+includelib \masm32\lib\kernel32.lib
+includelib \masm32\lib\masm32.lib
+
+
+.data
+
+
+z1 dd 1
+z2 dd 1
+z3 dd 1
+z4 dd 1
+z5 dd 1
+z6 dd 1
+z7 dd 1
+z8 dd 1
+
+
+summe dd 1
+
+
+.code
+
+
+
+prg proc
+
+
+push ebp
+mov ebp, esp			; standrt
+
+
+;								summe	+40
+;								z1		+36
+; k z auf    +32				z2		+32
+; m z auf    +28				z3		+28
+; g z auf    +24				z4		+24
+; prod auf   +20				z5		+20	
+; n1 auf     +16				z6		+16
+; n2 auf     +12				z7		+12
+; n3 auf      +8				z8		+8
+; ret auf     +4				ret auf +4
+
+
+;mov eax, dword ptr [ebp + 8]				==  n3
+;mul dword ptr [ebp + 12]					==  n2
+;mul dword ptr [ebp + 16]					==  n1
+;mov dword ptr [ebp + 20], eax				== Produkt
+
+mov eax, dword ptr [ebp + 8]		;zahl 8						zb 8
+add eax, dword ptr [ebp + 12]		;zahl 7						8+3 =11
+add eax, dword ptr [ebp + 16]		;zahl 6						11+4=15
+add eax, dword ptr [ebp + 20]		;zahl 5						15+1=16
+add eax, dword ptr [ebp + 24]		;zahl 4						16+3=19
+add eax, dword ptr [ebp + 28]		;zahl 3						19+3=22
+add eax, dword ptr [ebp + 32]		;zahl 2						22+3=25
+add eax, dword ptr [ebp + 36]		;zahl 1						25+5=30= erg in eax
+
+mov dword ptr [ebp + 40], eax		;  wert (30) aus eax in summe var
+
+
+
+
+
+mov esp, ebp			;standart
+pop ebp
+ret
+prg endp
+
+
+main:
+
+;-----Übung zu Parameterübergabe über den Stack-------
+
+
+;-Geben Sie über die Konsole genau 8 verschiedene einzelne Ziffern (vorzeichenlos, 1-9) ein.
+;-In einem Unterprogramm soll die Summe aller 8 Ziffern gebildet werden.
+;-Die Übergabe der Ziffern an das Unterprogramm muss über den Stack erfolgen, ebenso die Rückgabe des Ergebnisses an das Hauptprogramm.
+;(Das Hauptprogramm hat also nur die Aufgabe, die Ein- und Ausgabe sowie die Darstellung auf der Konsole zu realisieren.)
+
+
+;Hinweis: Beachten Sie, dass die Ziffern als ASCII-Code erscheinen im Programm, d.h., von jeder Ziffer 
+;		sind 30h zu subtrahieren, um den eigentlichen Zahlenwert zu bekommen.
+
+
+
+mov dword ptr [z1], sval(input("1. Ziffer: "))			;zahlen einlesen und in variablen um data segment schreiben
+mov dword ptr [z2], sval(input("2. Ziffer: "))
+mov dword ptr [z3], sval(input("3. Ziffer: "))
+mov dword ptr [z4], sval(input("4. Ziffer: "))
+mov dword ptr [z5], sval(input("5. Ziffer: "))
+mov dword ptr [z6], sval(input("6. Ziffer: "))
+mov dword ptr [z7], sval(input("7. Ziffer: "))
+mov dword ptr [z8], sval(input("8. Ziffer: "))
+
+
+mov ebx, 0
+mov ecx, 0
+
+
+
+push dword ptr [n1]
+push dword ptr [n2]
+push dword ptr [n3]
+push dword ptr [n4]
+push dword ptr [n5]
+push dword ptr [n6]
+push dword ptr [n7]
+push dword ptr [n8]
+push dword ptr [n9]
+
+push dword ptr [summe]
+
+
+
+call prg
+
+pop eax
+pop eax
+pop eax
+pop eax
+pop eax
+pop eax
+pop eax
+pop eax
+
+
+invoke locate, 1, 11
+pop eax ; summe
+printf("Summe der Zahlen: %d", eax)
+
+pause
+
+ 
+
+exit 
+end main

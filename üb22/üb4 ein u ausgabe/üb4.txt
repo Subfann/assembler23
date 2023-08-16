@@ -1,0 +1,144 @@
+;==============================================================
+ .386
+ .model flat,stdcall
+ option casemap:none
+;========================================================
+;include \masm32\include\windows.inc
+;include \masm32\include\masm32rt.inc
+
+; falls masm32 nicht auf C: installiert ist, aus dem Intranet
+; das Verzeichnis masm32 nach H: kopieren
+; dann aber H: vor die include-Dateien schreiben!
+
+include \masm32\include\masm32.inc
+include \masm32\include\kernel32.inc
+
+include \masm32\macros\macros.asm
+
+includelib \masm32\lib\kernel32.lib
+includelib \masm32\lib\masm32.lib
+
+
+.data
+
+dd zahlA 0
+dd zahlB 0
+
+dd erg1 0
+dd erg2 0
+dd erg3 0
+
+
+
+
+
+.code
+main:
+
+
+;Einfache Ein- und Ausgabe über die Konsole
+
+;1. Zahlen:
+
+	;1.1. Eingabe einer Dezimalzahl über die Konsole
+		
+		mov eax, 0
+		mov eax , sval input („“Zahl: „))
+
+
+
+	;1.2. Ausgabe einer Zahl über die Konsole
+	
+	printf ("Ergebnis: %d,\n", eax)
+
+
+;2. Text:
+
+	;2.1. Eingabe eines Textes über die Konsole
+		
+		mov ebx, input("Texteingabe: ")
+
+
+	;2.2. Ausgabe eines Textes über die Konsole
+
+		printf("Das ist ein Beispieltext")
+
+
+
+;3. (Sehr) simpler Rechner in Assembler:
+
+;Erstellen Sie einen simplen Rechner in Assembler, bei dem der Nutzer zwei Zahlen, A und B, über die
+;Konsole eingeben kann. Der Nutzer hat noch keine Möglichkeit eine Rechenoperation einzugeben,
+;daher soll unser Rechner einfach so viele wie möglich unterstützen.
+;Geben Sie nach der Eingabe des Nutzers, folgende arithmetische Berechnungen mit einem passenden Text wieder auf der Konsole aus:
+;- A + B
+;- A – B
+;- A * B
+;- A / B
+;- A^B
+
+
+mov eax, 0
+mov eax , sval input („“Zahl A: „))
+
+mov ebx, 0
+mov ebx , sval input („“Zahl B: „))
+
+
+
+mov dword ptr [zahlA], eax
+mov dword ptr [zahlB], ebx
+
+
+				;add    A + B
+
+add erg1, zahlA
+add erg1, zahlB
+
+printf ("Ergebnis: %d,\n", erg1)
+
+
+
+
+				;sub   A - B
+
+mov erg2, zahlA
+sub erg2, zahlB
+
+printf ("Ergebnis: %d,\n", erg2)
+
+
+
+
+				;mul   A * B
+
+mov erg3, zahlA
+mul erg3, zahlB
+
+printf ("Ergebnis: %d,\n", erg3)
+
+
+
+
+				;div   A / B
+
+mov erg4, zahlA
+div erg4, zahlB
+
+printf ("Ergebnis: %d,\n", erg4)
+
+
+
+
+;Achten Sie dabei auf Sonderfälle wie Überlauf oder Vorzeichenwechsel und geben Sie eine
+;entsprechende Information an den Nutzer aus, sollte einer dieser Fälle eintreten. Geben Sie
+;außerdem eine Nachricht aus, wenn B = 0 ist und bitten Sie den Nutzer um die erneute Eingabe des zweiten Werts.
+
+
+	;
+	;
+	;
+
+
+exit 
+end main
